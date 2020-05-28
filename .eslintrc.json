@@ -1,7 +1,8 @@
 {
   "env": {
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true
   },
   "extends": [
     "airbnb-base",
@@ -28,7 +29,8 @@
       {
         "ts": "never"
       }
-    ]
+    ],
+    "@typescript-eslint/interface-name-prefix": "always"
   },
   "settings": {
     "import/resolver": {

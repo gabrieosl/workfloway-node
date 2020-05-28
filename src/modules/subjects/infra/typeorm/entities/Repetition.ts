@@ -10,7 +10,7 @@ import {
 
 import Subject from './Subject';
 
-@Entity('tires')
+@Entity('repetitions')
 class Repetition {
   @PrimaryGeneratedColumn('uuid')
   id: string;
