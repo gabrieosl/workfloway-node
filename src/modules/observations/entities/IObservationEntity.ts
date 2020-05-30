@@ -9,8 +9,8 @@ export default interface IObservationEntity {
   type: ObservationType;
   repetition_id: string;
   repetition: Repetition;
-  user_id: string;
-  user: string;
+  user_id?: string;
+  user?: string;
   created_at: Date;
   updated_at: Date;
 }

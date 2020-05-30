@@ -1,13 +1,15 @@
 import { Router } from 'express';
 
-import appointmentsRouter from '@modules/appointments/infra/http/routes/appointments.routes';
-import usersRouter from '@modules/users/infra/http/routes/users.routes';
-import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
+import observationsRouter from '@modules/observations/infra/http/routes/observations.routes';
+import observationTypesRouter from '@modules/observations/infra/http/routes/observationTypes.routes';
+import subjectsRouter from '@modules/subjects/infra/http/routes/subjects.routes';
+import workflowsRouter from '@modules/workflows/infra/http/routes/workflows.routes';
 
 const routes = Router();
-
-routes.use('/appointments', appointmentsRouter);
-routes.use('/users', usersRouter);
-routes.use('/sessions', sessionsRouter);
+routes.use('/observations', observationsRouter);
+routes.use('/observationtypes', observationTypesRouter);
+routes.use('/subjects', subjectsRouter);
+routes.use('/workflows', workflowsRouter);
+routes.use('/', (request, response) => response.json({ home: 'home' }));
 
 export default routes;
