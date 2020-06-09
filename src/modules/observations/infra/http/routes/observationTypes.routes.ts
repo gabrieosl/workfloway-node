@@ -5,7 +5,8 @@ import ObservationTypesController from '../controllers/ObservationTypesControlle
 const observationsTypesRouter = Router();
 const observationTypesController = new ObservationTypesController();
 
-observationsTypesRouter.post('/', observationTypesController.create);
 observationsTypesRouter.get('/', observationTypesController.index);
+// TODO observationsTypesRouter.use(Middleware to ensure is manager);
+observationsTypesRouter.post('/', observationTypesController.create);
 
 export default observationsTypesRouter;
