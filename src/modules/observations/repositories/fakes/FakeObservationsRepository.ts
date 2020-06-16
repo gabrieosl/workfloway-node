@@ -1,36 +1,45 @@
 import { uuid } from 'uuidv4';
 
-import IObservationTypesRepository from '../IObservationTypesRepository';
-import ICreateObservationTypeDTO from '@modules/observations/dtos/ICreateObservationTypeDTO';
-import ObservationType from '@modules/observations/infra/typeorm/entities/ObservationType';
+import IObservationsRepository from '../IObservationsRepository';
+import ICreateObservationDTO from '@modules/observations/dtos/ICreateObservationDTO';
+import Observation from '@modules/observations/infra/typeorm/entities/Observation';
 
-export default class FakeObservationTypesRepository
-  implements IObservationTypesRepository {
-  private observationTypes: ObservationType[] = [];
+export default class FakeObservationsRepository
+  implements IObservationsRepository {
+  private observations: Observation[] = [];
 
-  public async index(): Promise<ObservationType[]> {
-    return this.observationTypes;
+  public async index(): Promise<Observation[]> {
+    return this.observations;
   }
 
   public async create({
-    name,
-  }: ICreateObservationTypeDTO): Promise<ObservationType> {
-    const observationType = new ObservationType();
+    comment,
+    repetition_id,
+    type_id,
+    value,
+    user_id,
+  }: ICreateObservationDTO): Promise<Observation> {
+    const observation = new Observation();
 
-    Object.assign(observationType, { id: uuid(), name });
+    Object.assign(observation, {
+      id: uuid(),
+      comment,
+      repetition_id,
+      type_id,
+      value,
+      user_id,
+    });
 
-    this.observationTypes.push(observationType);
+    this.observations.push(observation);
 
-    return observationType;
+    return observation;
   }
 
-  public async delete(observationType_id: string): Promise<boolean> {
-    const obsType = this.observationTypes.findIndex(
-      obsType => obsType.id === observationType_id
-    );
+  public async delete(observation_id: string): Promise<boolean> {
+    const obs = this.observations.findIndex(obs => obs.id === observation_id);
 
-    if (obsType) {
-      this.observationTypes.splice(obsType, 1);
+    if (obs) {
+      this.observations.splice(obs, 1);
       return true;
     }
     return false;

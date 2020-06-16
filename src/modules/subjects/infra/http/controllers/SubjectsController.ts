@@ -14,14 +14,14 @@ export default class SubjectsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { study, batch, matricule, project } = request.body;
+    const { study, batch, name, project } = request.body;
 
     const createSubject = container.resolve(CreateSubjectService);
 
     const subject = await createSubject.execute({
       study,
       batch,
-      matricule,
+      name,
       project,
     });
 

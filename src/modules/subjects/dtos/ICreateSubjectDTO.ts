@@ -1,6 +1,6 @@
 export default interface ICreateSubjectDTO {
   project: string;
   study: string;
-  matricule: string;
+  name: string;
   batch: string;
 }

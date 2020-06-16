@@ -14,12 +14,12 @@ export default class FakeSubjectsRepository implements ISubjectsRepository {
   public async create({
     project,
     study,
-    matricule,
+    name,
     batch,
   }: ICreateSubjectDTO): Promise<Subject> {
     const subject = new Subject();
 
-    Object.assign(subject, { id: uuid(), project, study, matricule, batch });
+    Object.assign(subject, { id: uuid(), project, study, name, batch });
 
     this.subjects.push(subject);
 

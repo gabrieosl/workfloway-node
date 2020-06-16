@@ -15,7 +15,7 @@ describe('Create Subject', () => {
     const subject = await createSubject.execute({
       study: 'PLBR201501',
       batch: 'F102380A',
-      matricule: 'ABC12345D',
+      name: 'ABC12345D',
       project: 'Project001',
     });
 

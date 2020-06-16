@@ -20,13 +20,13 @@ export default class SubjectsRepository implements ISubjectsRepository {
   public async create({
     project,
     study,
-    matricule,
+    name,
     batch,
   }: ICreateSubjectDTO): Promise<Subject> {
     const subject = this.ormRepository.create({
       project,
       study,
-      matricule,
+      name,
       batch,
     });
 

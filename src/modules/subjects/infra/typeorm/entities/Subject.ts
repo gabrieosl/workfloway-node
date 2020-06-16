@@ -18,7 +18,7 @@ class Subject {
   study: string;
 
   @Column()
-  matricule: string;
+  name: string;
 
   @Column()
   batch: string;

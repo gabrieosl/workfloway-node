@@ -13,6 +13,9 @@ class Repetition {
   id: ObjectID;
 
   @Column()
+  name: string;
+
+  @Column()
   content: string;
 
   @CreateDateColumn({ default: 'now()' })

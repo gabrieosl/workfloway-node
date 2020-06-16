@@ -17,10 +17,10 @@ class Observation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ nullable: true })
   comment: string;
 
-  @Column()
+  @Column({ nullable: true })
   value: string;
 
   @CreateDateColumn({ default: 'now()' })
@@ -29,21 +29,21 @@ class Observation {
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
 
-  @Column()
+  @Column({ nullable: true })
   type_id: string;
 
   @ManyToOne(() => ObservationType)
   @JoinColumn({ name: 'type_id' })
   type: ObservationType;
 
-  @Column()
+  @Column({ nullable: true })
   repetition_id: string;
 
   @ManyToOne(() => Repetition)
   @JoinColumn({ name: 'repetition_id' })
   repetition: Repetition;
 
-  @Column()
+  @Column({ nullable: true })
   user_id: string;
 
   // @ManyToOne(() => User)
