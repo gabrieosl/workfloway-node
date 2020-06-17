@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 @Entity('workflows')
-class Repetition {
+class Workflow {
   @ObjectIdColumn()
   id: ObjectID;
 
@@ -25,4 +25,4 @@ class Repetition {
   updated_at: Date;
 }
 
-export default Repetition;
+export default Workflow;

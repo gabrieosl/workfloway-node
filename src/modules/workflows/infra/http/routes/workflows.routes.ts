@@ -6,6 +6,7 @@ const workflowsRouter = Router();
 const workflowsController = new WorkflowsController();
 
 workflowsRouter.get('/', workflowsController.index);
+workflowsRouter.get('/:id', workflowsController.show);
 // TODO observationsTypesRouter.use(Middleware to ensure is manager);
 workflowsRouter.post('/', workflowsController.create);
 export default workflowsRouter;

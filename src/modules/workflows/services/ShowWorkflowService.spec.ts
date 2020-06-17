@@ -1,25 +1,23 @@
 import 'reflect-metadata';
-
 import IWorkflowsEntity from '../schemas/IWorkflowSchema';
 import FakeWorkflowsRepository from '../repositories/fakes/FakeWorkflowsRepository';
-import ListWorkflowsService from './ListWorkflowsService';
+import ShowWorkflowService from './ShowWorkflowService';
 
 let fakeWorkflowsRepository: FakeWorkflowsRepository;
-let listWorkflows: ListWorkflowsService;
+let showWorkflow: ShowWorkflowService;
 
-describe('List Workflows', () => {
+describe('Show Workflow', () => {
   beforeEach(() => {
     fakeWorkflowsRepository = new FakeWorkflowsRepository();
-    listWorkflows = new ListWorkflowsService(fakeWorkflowsRepository);
+    showWorkflow = new ShowWorkflowService(fakeWorkflowsRepository);
   });
 
-  it('should be able to list workflows', async () => {
+  it('should be able to show workflows', async () => {
     const workflow = await fakeWorkflowsRepository.create({
       name: 'SOME-WORKFLOW',
       content: '[][][]',
     });
-
-    const workflows = await listWorkflows.execute();
-    expect(await listWorkflows.execute()).toEqual([workflow]);
+    const wantedWorkflow = await showWorkflow.execute(String(workflow.id));
+    expect(wantedWorkflow).toEqual(workflow);
   });
 });

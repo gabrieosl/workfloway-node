@@ -1,4 +1,4 @@
-export default interface IWorflowEntity {
+export default interface IWorkflowEntity {
   id: object;
   name: string;
   content: string;

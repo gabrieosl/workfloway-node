@@ -12,9 +12,11 @@ export default class CreateWorkflowService {
   ) {}
 
   public async execute({
+    name,
     content,
   }: ICreateWorkflowDTO): Promise<IWorkflowSchema> {
     const workflow = await this.workflowsRepository.create({
+      name,
       content,
     });
 

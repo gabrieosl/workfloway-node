@@ -12,18 +12,32 @@ export default class WorkflowsRepository implements IWorkflowsRepository {
   }
 
   public async index(): Promise<Workflow[]> {
-    const workflows = this.ormRepository.find();
+    const workflows = this.ormRepository.find({
+      order: {
+        name: 'ASC',
+      },
+      select: ['id', 'name'],
+    });
 
     return workflows;
   }
 
-  public async create({ content }: ICreateWorkflowDTO): Promise<Workflow> {
+  public async create({
+    name,
+    content,
+  }: ICreateWorkflowDTO): Promise<Workflow> {
     const workflow = this.ormRepository.create({
+      name,
       content,
     });
 
     await this.ormRepository.save(workflow);
 
+    return workflow;
+  }
+
+  public async findById(id: string): Promise<Workflow | undefined> {
+    const workflow = await this.ormRepository.findOne(id);
     return workflow;
   }
 

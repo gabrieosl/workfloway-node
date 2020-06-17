@@ -1,7 +1,8 @@
 import ICreateWorkflowDTO from '../dtos/ICreateWorkflowDTO';
-import IWorflowEntity from '../schemas/IWorkflowSchema';
+import IWorkflowEntity from '../schemas/IWorkflowSchema';
 
 export default interface IWorkflowsRepository {
-  create(data: ICreateWorkflowDTO): Promise<IWorflowEntity>;
-  index(): Promise<IWorflowEntity[]>;
+  create(data: ICreateWorkflowDTO): Promise<IWorkflowEntity>;
+  index(): Promise<IWorkflowEntity[]>;
+  findById(id: string): Promise<IWorkflowEntity | undefined>;
 }
