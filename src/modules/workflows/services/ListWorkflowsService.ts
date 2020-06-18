@@ -10,8 +10,8 @@ export default class ListWorkflowsService {
     private workflowsRepository: IWorkflowsRepository
   ) {}
 
-  public async execute(): Promise<IWorkflowEntity[]> {
-    const workflows = await this.workflowsRepository.index();
+  public async execute(size: number, page: number): Promise<IWorkflowEntity[]> {
+    const workflows = await this.workflowsRepository.index(size, page);
 
     return workflows;
   }

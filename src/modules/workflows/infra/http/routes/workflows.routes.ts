@@ -9,4 +9,6 @@ workflowsRouter.get('/', workflowsController.index);
 workflowsRouter.get('/:id', workflowsController.show);
 // TODO observationsTypesRouter.use(Middleware to ensure is manager);
 workflowsRouter.post('/', workflowsController.create);
+workflowsRouter.put('/:id', workflowsController.update);
+// workflowsRouter.delete('/:id', workflowsController.delete);
 export default workflowsRouter;

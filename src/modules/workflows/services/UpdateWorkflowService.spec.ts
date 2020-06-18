@@ -1,22 +1,29 @@
-import IWorkflowsEntity from '../schemas/IWorkflowSchema';
 import FakeWorkflowsRepository from '../repositories/fakes/FakeWorkflowsRepository';
+import UpdateWorkflowService from './UpdateWorkflowService';
 import CreateWorkflowService from './CreateWorkflowService';
 
 let fakeWorkflowsRepository: FakeWorkflowsRepository;
+let updateWorkflow: UpdateWorkflowService;
 let createWorkflow: CreateWorkflowService;
 
-describe('Create Workflow', () => {
+describe('Update Workflow', () => {
   beforeEach(() => {
     fakeWorkflowsRepository = new FakeWorkflowsRepository();
+    updateWorkflow = new UpdateWorkflowService(fakeWorkflowsRepository);
     createWorkflow = new CreateWorkflowService(fakeWorkflowsRepository);
   });
 
-  it('should be able to create a workflow', async () => {
+  it('should be able to update a workflow', async () => {
     const workflow = await createWorkflow.execute({
       name: 'test',
       content: [{}, {}],
     });
 
-    expect(workflow).toHaveProperty('id');
+    const updatedWorkflow = await updateWorkflow.execute(String(workflow.id), {
+      name: 'test2',
+      content: [{}, {}],
+    });
+
+    expect(updatedWorkflow.name).toEqual('test2');
   });
 });

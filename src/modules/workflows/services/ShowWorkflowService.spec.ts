@@ -15,7 +15,7 @@ describe('Show Workflow', () => {
   it('should be able to show workflows', async () => {
     const workflow = await fakeWorkflowsRepository.create({
       name: 'SOME-WORKFLOW',
-      content: '[][][]',
+      content: [{}, {}],
     });
     const wantedWorkflow = await showWorkflow.execute(String(workflow.id));
     expect(wantedWorkflow).toEqual(workflow);

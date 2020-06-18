@@ -16,7 +16,7 @@ describe('List Workflows', () => {
   it('should be able to list workflows', async () => {
     const workflow = await fakeWorkflowsRepository.create({
       name: 'SOME-WORKFLOW',
-      content: '[][][]',
+      content: [{}, {}],
     });
 
     const workflows = await listWorkflows.execute();

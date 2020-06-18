@@ -16,7 +16,7 @@ class Workflow {
   name: string;
 
   @Column()
-  content: string;
+  content: object[];
 
   @CreateDateColumn({ default: 'now()' })
   created_at: Date;

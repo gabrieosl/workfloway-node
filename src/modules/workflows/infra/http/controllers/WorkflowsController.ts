@@ -4,12 +4,14 @@ import { container } from 'tsyringe';
 import ListWorkflowsService from '@modules/workflows/services/ListWorkflowsService';
 import CreateWorkflowService from '@modules/workflows/services/CreateWorkflowService';
 import ShowWorkflowService from '@modules/workflows/services/ShowWorkflowService';
+import UpdateWorkflowService from '@modules/workflows/services/UpdateWorkflowService';
 
 export default class WorkflowsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listWorkflows = container.resolve(ListWorkflowsService);
 
-    const workflows = await listWorkflows.execute();
+    const { size = 20, page = 1 } = request.body;
+    const workflows = await listWorkflows.execute({ size, page });
 
     return response.json(workflows);
   }
@@ -18,11 +20,11 @@ export default class WorkflowsController {
     const createWorkflow = container.resolve(CreateWorkflowService);
 
     const { name } = request.body;
-    const content = JSON.stringify(request.body.content);
+    const content = request.body.content;
 
     const workflow = await createWorkflow.execute({ name, content });
 
-    return response.json(workflow);
+    return response.status(201).json(workflow);
   }
 
   public async show(request: Request, response: Response): Promise<Response> {
@@ -31,6 +33,16 @@ export default class WorkflowsController {
     const { id } = request.params;
 
     const workflow = await showWorkflow.execute(id);
+    return response.json(workflow);
+  }
+
+  public async update(request: Request, response: Response): Promise<Response> {
+    const updateWorkflow = container.resolve(UpdateWorkflowService);
+
+    const { id } = request.params;
+    const { name, content } = request.body;
+
+    const workflow = await updateWorkflow.execute(id, { name, content });
     return response.json(workflow);
   }
 }
