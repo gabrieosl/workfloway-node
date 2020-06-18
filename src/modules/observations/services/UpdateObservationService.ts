@@ -14,13 +14,13 @@ export default class UpdateeObservationService {
   public async execute({
     observation_id,
     comment,
-    repetition_id,
+    submission_id,
     type_id,
     value,
   }: ICreateObservationDTO): Promise<IObservationEntity> {
     const observation = await this.observationsRepository.create({
       comment,
-      repetition_id,
+      submission_id,
       type_id,
       value,
     });

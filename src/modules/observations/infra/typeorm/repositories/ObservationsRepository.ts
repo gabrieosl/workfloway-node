@@ -19,14 +19,14 @@ export default class ObservationsRepository implements IObservationsRepository {
 
   public async create({
     comment,
-    repetition_id,
+    submission_id,
     type_id,
     value,
     user_id,
   }: ICreateObservationDTO): Promise<Observation> {
     const observation = this.ormRepository.create({
       comment,
-      repetition_id,
+      submission_id,
       type_id,
       value,
       user_id,

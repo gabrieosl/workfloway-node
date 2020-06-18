@@ -8,20 +8,33 @@ import {
   JoinColumn,
 } from 'typeorm';
 
-import Repetition from '@modules/subjects/infra/typeorm/entities/Repetition';
+import Subject from '@modules/subjects/infra/typeorm/entities/Subject';
 import ObservationType from '@modules/observations/infra/typeorm/entities/ObservationType';
-// import User from './User';
+import User from '@modules/users/infra/typeorm/entities/User';
+import IObservationEntity from '@modules/observations/entities/IObservationEntity';
 
 @Entity('observations')
-class Observation {
+class Observation implements IObservationEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ nullable: true })
-  comment: string;
+  type_id: string;
+
+  @Column({ nullable: true })
+  subject_id: string;
+
+  @Column({ nullable: true })
+  submission_id: string;
+
+  @Column({ nullable: true })
+  user_id: string;
 
   @Column({ nullable: true })
   value: string;
+
+  @Column({ nullable: true })
+  comment: string;
 
   @CreateDateColumn({ default: 'now()' })
   created_at: Date;
@@ -29,26 +42,13 @@ class Observation {
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
 
-  @Column({ nullable: true })
-  type_id: string;
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
-  @ManyToOne(() => ObservationType)
-  @JoinColumn({ name: 'type_id' })
-  type: ObservationType;
-
-  @Column({ nullable: true })
-  repetition_id: string;
-
-  @ManyToOne(() => Repetition)
-  @JoinColumn({ name: 'repetition_id' })
-  repetition: Repetition;
-
-  @Column({ nullable: true })
-  user_id: string;
-
-  // @ManyToOne(() => User)
-  // @JoinColumn({ name: 'user_id' })
-  // user: Repetition;
+  @ManyToOne(() => Subject)
+  @JoinColumn({ name: 'subject_id' })
+  subject: Subject;
 }
 
 export default Observation;

@@ -14,7 +14,7 @@ export default class FakeObservationsRepository
 
   public async create({
     comment,
-    repetition_id,
+    submission_id,
     type_id,
     value,
     user_id,
@@ -24,7 +24,7 @@ export default class FakeObservationsRepository
     Object.assign(observation, {
       id: uuid(),
       comment,
-      repetition_id,
+      submission_id,
       type_id,
       value,
       user_id,

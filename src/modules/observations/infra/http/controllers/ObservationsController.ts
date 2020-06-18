@@ -14,12 +14,12 @@ export default class ObservationController {
     return response.json(observations);
   }
   public async create(request: Request, response: Response) {
-    const { comment, repetition_id, type_id, value, user_id } = request.body;
+    const { comment, submission_id, type_id, value, user_id } = request.body;
     const createObservation = container.resolve(CreateObservationController);
 
     const observation = await createObservation.execute({
       comment,
-      repetition_id,
+      submission_id,
       type_id,
       value,
       user_id,
@@ -28,6 +28,6 @@ export default class ObservationController {
     return response.json(observation);
   }
   public async update(request: Request, response: Response) {
-    const { id, comment, value, type_id, repetition_id } = request.body;
+    const { id, comment, value, type_id, submission_id } = request.body;
   }
 }

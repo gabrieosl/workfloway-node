@@ -1,16 +1,19 @@
-import Repetition from '@modules/subjects/entities/IRepetitionEntity';
+import Submission from '@modules/subjects/entities/ISubmissionEntity';
 import ObservationType from '@modules/observations/entities/IObservationTypeEntity';
+import User from '@modules/users/infra/typeorm/entities/User';
+import ISubjectEntity from '@modules/subjects/entities/ISubjectEntity';
 
 export default interface IObservationEntity {
   id: string;
-  comment: string;
-  value: string;
   type_id: string;
-  type: ObservationType;
-  repetition_id: string;
-  repetition: Repetition;
-  user_id?: string;
-  user?: string;
+  subject_id: string;
+  submission_id: string;
+  user_id: string;
+  value: string;
+  comment: string;
   created_at: Date;
   updated_at: Date;
+
+  subject: ISubjectEntity;
+  user: User;
 }
