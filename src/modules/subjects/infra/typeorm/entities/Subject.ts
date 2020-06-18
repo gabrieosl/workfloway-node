@@ -4,30 +4,40 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 
+import ISubjectEntity from '@modules/subjects/entities/ISubjectEntity';
+import Tag from './Tag';
+import Observation from '@modules/observations/infra/typeorm/entities/Observation';
+import Submission from './Submission';
+
 @Entity('subjects')
-class Subject {
+class Subject implements ISubjectEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  project: string;
-
-  @Column()
-  study: string;
-
-  @Column()
   name: string;
 
-  @Column()
-  batch: string;
+  @Column({ nullable: true })
+  workflow_id: string;
 
   @CreateDateColumn({ default: 'now()' })
   created_at: Date;
 
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
+
+  @OneToMany(() => Tag, tag => tag.subject_id)
+  tags: Tag[];
+
+  @OneToMany(() => Observation, observation => observation.subject)
+  observations: Observation[];
+
+  @OneToMany(() => Submission, submission => submission.subject)
+  submissions: Submission[];
 }
 
 export default Subject;

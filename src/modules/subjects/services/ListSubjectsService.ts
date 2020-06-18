@@ -10,8 +10,16 @@ export default class ListSubjectsService {
     private subjectsRepository: ISubjectsRepository
   ) {}
 
-  public async execute(): Promise<ISubjectEntity[]> {
-    const subjects = await this.subjectsRepository.index();
+  public async execute(
+    size: number,
+    page: number,
+    includeObservations: boolean
+  ): Promise<ISubjectEntity[]> {
+    const subjects = await this.subjectsRepository.index(
+      size,
+      page,
+      includeObservations
+    );
 
     return subjects;
   }

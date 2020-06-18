@@ -1,9 +1,15 @@
+import ITagEntity from './ITagEntity';
+import IObservationEntity from '@modules/observations/entities/IObservationEntity';
+import ISubmissionEntity from './ISubmissionEntity';
+
 export default interface ISubjectEntity {
   id: string;
-  project: string;
-  study: string;
   name: string;
-  batch: string;
+  workflow_id: string;
   created_at: Date;
   updated_at: Date;
+
+  tags: ITagEntity[];
+  observations: IObservationEntity[];
+  submissions: ISubmissionEntity[];
 }

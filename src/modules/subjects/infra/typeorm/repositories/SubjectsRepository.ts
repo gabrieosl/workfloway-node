@@ -11,26 +11,55 @@ export default class SubjectsRepository implements ISubjectsRepository {
     this.ormRepository = getRepository(Subject);
   }
 
-  public async index(): Promise<Subject[]> {
-    const subjects = this.ormRepository.find();
+  public async index(
+    size: number,
+    page: number,
+    includeObservations: boolean
+  ): Promise<Subject[]> {
+    let subjects = await this.ormRepository
+      .createQueryBuilder('subjects')
+      .leftJoinAndSelect('subjects.observations', 'observations')
+      .leftJoinAndSelect('subjects.submissions', 'submissions')
+      .leftJoinAndSelect('observations.user', 'users')
+      .skip(size * (page - 1))
+      .take(size)
+      .select([
+        'subjects.id',
+        'subjects.name',
+        'subjects.workflow_id',
+        'observations.value',
+        'observations.comment',
+        'observations.created_at',
+        'submissions.repetition',
+        'submissions.closed',
+        'users.name',
+      ])
+      .getMany();
+
+    // const subjects = await this.ormRepository.find({
+    //   take: size,
+    //   skip: size * (page - 1),
+    //   relations:
+    //     (!includeObservations && ['observations', 'observations.user']) ||
+    //     undefined,
+    // });
 
     return subjects;
   }
 
   public async create({
-    project,
-    study,
     name,
-    batch,
+    workflow_id,
+    tags,
   }: ICreateSubjectDTO): Promise<Subject> {
     const subject = this.ormRepository.create({
-      project,
-      study,
       name,
-      batch,
+      workflow_id,
     });
 
     this.ormRepository.save(subject);
+
+    //CREATE TAGS
 
     return subject;
   }

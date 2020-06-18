@@ -1,15 +1,15 @@
 import { uuid } from 'uuidv4';
 
-import IRepetitionsRepository from '../IRepetitionsRepository';
-import ICreateRepetitionDTO from '@modules/subjects/dtos/ICreateRepetitionDTO';
-import Repetition from '@modules/subjects/infra/typeorm/entities/Repetition';
+import ISubmissionsRepository from '../ISubmissionsRepository';
+import ICreateSubmissionDTO from '@modules/subjects/dtos/ICreateSubmissionDTO';
+import Submission from '@modules/subjects/infra/typeorm/entities/Submission';
 
-export default class FakeRepetitionsRepository
-  implements IRepetitionsRepository {
-  private repetitions: Repetition[] = [];
+export default class FakeSubmissionsRepository
+  implements ISubmissionsRepository {
+  private submissions: Submission[] = [];
 
-  public async index(): Promise<Repetition[]> {
-    return this.repetitions;
+  public async index(): Promise<Submission[]> {
+    return this.submissions;
   }
 
   public async create({
@@ -17,10 +17,10 @@ export default class FakeRepetitionsRepository
     customer,
     subject_id,
     vehicle,
-  }: ICreateRepetitionDTO): Promise<Repetition> {
-    const repetition = new Repetition();
+  }: ICreateSubmissionDTO): Promise<Submission> {
+    const submission = new Submission();
 
-    Object.assign(repetition, {
+    Object.assign(submission, {
       id: uuid(),
       count,
       customer,
@@ -28,8 +28,8 @@ export default class FakeRepetitionsRepository
       vehicle,
     });
 
-    this.repetitions.push(repetition);
+    this.submissions.push(submission);
 
-    return repetition;
+    return submission;
   }
 }

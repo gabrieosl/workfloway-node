@@ -8,21 +8,33 @@ export default class SubjectsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listSubjects = container.resolve(ListSubjectsService);
 
-    const subjects = await listSubjects.execute();
+    const size = Number(request.query.size) || 20;
+    const page = Number(request.query.page) || 1;
+
+    const includeObservations = !!request.params.includeObservations || false;
+
+    const subjects = await listSubjects.execute(
+      size,
+      page,
+      includeObservations
+    );
 
     return response.json(subjects);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { study, batch, name, project } = request.body;
+    const { name, workflow_id } = request.body;
 
     const createSubject = container.resolve(CreateSubjectService);
 
     const subject = await createSubject.execute({
-      study,
-      batch,
       name,
-      project,
+      workflow_id,
+      tags: {
+        tag1: 'tag1 value',
+        tag2: 'tag2 value',
+        tag3: 'tag3 value',
+      },
     });
 
     return response.json(subject);

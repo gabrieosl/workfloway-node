@@ -1,6 +1,7 @@
 export default interface ICreateSubjectDTO {
-  project: string;
-  study: string;
   name: string;
-  batch: string;
+  workflow_id: string;
+  tags: {
+    [key: string]: string;
+  };
 }

@@ -2,6 +2,10 @@ import ISubjectEntity from '../entities/ISubjectEntity';
 import ICreateSubjectDTO from '../dtos/ICreateSubjectDTO';
 
 export default interface ISubjectsRepository {
-  index(): Promise<ISubjectEntity[]>;
+  index(
+    size: number,
+    page: number,
+    includeObservations: boolean
+  ): Promise<ISubjectEntity[]>;
   create(data: ICreateSubjectDTO): Promise<ISubjectEntity>;
 }
