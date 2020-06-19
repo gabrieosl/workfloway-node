@@ -46,8 +46,8 @@ class Observation implements IObservationEntity {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @ManyToOne(() => Subject)
-  @JoinColumn({ name: 'subject_id' })
+  @ManyToOne(() => Subject, subject => subject.observations)
+  @JoinColumn({ name: 'subject_id', referencedColumnName: 'id' })
   subject: Subject;
 }
 

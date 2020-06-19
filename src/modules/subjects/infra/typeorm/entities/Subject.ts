@@ -5,7 +5,6 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  JoinColumn,
 } from 'typeorm';
 
 import ISubjectEntity from '@modules/subjects/entities/ISubjectEntity';
@@ -35,6 +34,9 @@ class Subject implements ISubjectEntity {
 
   @OneToMany(() => Observation, observation => observation.subject)
   observations: Observation[];
+
+  lastObservation: Observation;
+  lastSubmission: Submission;
 
   @OneToMany(() => Submission, submission => submission.subject)
   submissions: Submission[];
