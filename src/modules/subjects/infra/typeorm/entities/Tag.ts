@@ -15,14 +15,8 @@ class Tag implements ITagEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ nullable: true })
-  subject_id: string;
-
   @Column()
-  key: string;
-
-  @Column()
-  value: string;
+  name: string;
 
   @CreateDateColumn({ default: 'now()' })
   created_at: Date;

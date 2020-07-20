@@ -5,6 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToMany,
+  JoinColumn,
+  JoinTable,
 } from 'typeorm';
 
 import ISubjectEntity from '@modules/subjects/entities/ISubjectEntity';
@@ -29,7 +32,8 @@ class Subject implements ISubjectEntity {
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
 
-  @OneToMany(() => Tag, tag => tag.subject_id)
+  @ManyToMany(() => Tag)
+  @JoinTable()
   tags: Tag[];
 
   @OneToMany(() => Observation, observation => observation.subject)

@@ -8,6 +8,9 @@ import './providers/MailProvider';
 import ISubjectsRepository from '@modules/subjects/repositories/ISubjectsRepository';
 import SubjectsRepository from '@modules/subjects/infra/typeorm/repositories/SubjectsRepository';
 
+import ITagsRepository from '@modules/subjects/repositories/ITagsRepository';
+import TagsRepository from '@modules/subjects/infra/typeorm/repositories/TagsRepository';
+
 import IObservationTypesRepository from '@modules/observations/repositories/IObservationTypesRepository';
 import ObservationTypesRepository from '@modules/observations/infra/typeorm/repositories/ObservationTypesRepository';
 
@@ -27,6 +30,8 @@ container.registerSingleton<ISubjectsRepository>(
   'SubjectsRepository',
   SubjectsRepository
 );
+
+container.registerSingleton<ITagsRepository>('TagsRepository', TagsRepository);
 
 container.registerSingleton<IObservationTypesRepository>(
   'ObservationTypesRepository',
