@@ -2,6 +2,7 @@ import { uuid } from 'uuidv4';
 
 import IObservationTypesRepository from '../IObservationTypesRepository';
 import ICreateObservationTypeDTO from '@modules/observations/dtos/ICreateObservationTypeDTO';
+import IUpdateObservationTypeDTO from '@modules/observations/dtos/IUpdateObservationTypeDTO';
 import ObservationType from '@modules/observations/infra/typeorm/entities/ObservationType';
 
 export default class FakeObservationTypesRepository
@@ -34,5 +35,19 @@ export default class FakeObservationTypesRepository
       return true;
     }
     return false;
+  }
+
+  public async update({
+    id,
+    name,
+  }: IUpdateObservationTypeDTO): Promise<ObservationType> {
+    const index = this.observationTypes.findIndex(item => item.id === id);
+
+    if (index >= 0) {
+      this.observationTypes[index].name = name;
+      return this.observationTypes[index];
+    }
+
+    return {} as ObservationType;
   }
 }

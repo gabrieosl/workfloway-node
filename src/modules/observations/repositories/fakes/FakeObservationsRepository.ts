@@ -2,6 +2,7 @@ import { uuid } from 'uuidv4';
 
 import IObservationsRepository from '../IObservationsRepository';
 import ICreateObservationDTO from '@modules/observations/dtos/ICreateObservationDTO';
+import IUpdateObservationDTO from '@modules/observations/dtos/IUpdateObservationDTO';
 import Observation from '@modules/observations/infra/typeorm/entities/Observation';
 
 export default class FakeObservationsRepository
@@ -43,5 +44,23 @@ export default class FakeObservationsRepository
       return true;
     }
     return false;
+  }
+
+  public async findById(id: string): Promise<Observation | undefined> {
+    return this.observations.find(item => item.id === id);
+  }
+
+  public async findByUserId(userId: string): Promise<Observation[]> {
+    return this.observations.filter(item => item.user_id === userId);
+  }
+
+  public async save(data: Observation): Promise<Observation> {
+    const index = this.observations.findIndex(item => item.id === data.id);
+
+    if (index >= 0) {
+      this.observations[index] = data;
+    }
+
+    return data;
   }
 }

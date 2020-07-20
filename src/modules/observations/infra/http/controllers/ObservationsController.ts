@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 
 import CreateObservationController from '@modules/observations/services/CreateObservationService';
 import ListObservationService from '@modules/observations/services/ListObservationsService';
-import UpdateObservationService from '@modules/observations/services/UpdateObservationsService';
+import UpdateObservationService from '@modules/observations/services/UpdateObservationService';
 
 export default class ObservationController {
   public async index(request: Request, response: Response) {
@@ -28,6 +28,19 @@ export default class ObservationController {
     return response.json(observation);
   }
   public async update(request: Request, response: Response) {
-    const { id, comment, value, type_id, submission_id } = request.body;
+    const { targetId } = request.params;
+    const { comment, value, type_id, submission_id } = request.body;
+
+    const updateObservation = container.resolve(UpdateObservationService);
+
+    const observation = await updateObservation.execute({
+      id: targetId,
+      comment,
+      value,
+      type_id,
+      submission_id,
+    });
+
+    return response.json(observation);
   }
 }

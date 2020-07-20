@@ -15,7 +15,11 @@ describe('Create Observation', () => {
 
   it('should be able to create a observation', async () => {
     const observation = await createObservation.execute({
-      name: 'Enviar para teste',
+      comment: 'some-comment',
+      submission_id: 'some-submission-id',
+      type_id: 'some-type-id',
+      value: 'some value',
+      user_id: 'some-user-id',
     });
 
     expect(observation).toHaveProperty('id');

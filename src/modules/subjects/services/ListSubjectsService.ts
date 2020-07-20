@@ -11,9 +11,9 @@ export default class ListSubjectsService {
   ) {}
 
   public async execute(
-    size: number,
-    page: number,
-    includeObservations: boolean
+    size = 15,
+    page = 1,
+    includeObservations = false
   ): Promise<ISubjectEntity[]> {
     const subjects = await this.subjectsRepository.index(
       size,

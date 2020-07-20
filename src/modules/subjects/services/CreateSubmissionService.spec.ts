@@ -1,6 +1,6 @@
 import ISubmissionsEntity from '../entities/ISubmissionEntity';
 import FakeSubjectsRepository from '../repositories/fakes/FakeSubjectsRepository';
-import FakeSubmissionsRepository from '../repositories/fakes/FakeSubmissionsRepository';
+import FakeSubmissionsRepository from '../repositories/fakes/FakeRepetitionsRepository';
 import CreateSubjectService from './CreateSubjectService';
 import CreateSubmissionService from './CreateSubmissionService';
 
@@ -19,10 +19,8 @@ describe('Create Submission', () => {
 
   it('should be able to create a submission associated to a subject', async () => {
     const subject = await createSubject.execute({
-      study: 'PLBR201501',
-      batch: 'F102380A',
       name: 'ABC12345D',
-      project: 'Project001',
+      workflow_id: 'some-workflow-id',
     });
 
     const submission = await createSubmission.execute({

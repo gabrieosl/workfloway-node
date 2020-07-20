@@ -1,7 +1,7 @@
 export default interface ICreateSubjectDTO {
   name: string;
   workflow_id: string;
-  tags: {
+  tags?: {
     [key: string]: string;
   };
 }

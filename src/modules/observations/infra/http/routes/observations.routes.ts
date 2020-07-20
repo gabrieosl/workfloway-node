@@ -7,6 +7,6 @@ const observationsController = new ObservationsController();
 
 observationsRouter.get('/', observationsController.index);
 observationsRouter.post('/', observationsController.create);
-observationsRouter.put('/', observationsController.update);
+observationsRouter.put('/targetId', observationsController.update);
 
 export default observationsRouter;

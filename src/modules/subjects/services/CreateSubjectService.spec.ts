@@ -13,10 +13,8 @@ describe('Create Subject', () => {
 
   it('should be able to create a subject', async () => {
     const subject = await createSubject.execute({
-      study: 'PLBR201501',
-      batch: 'F102380A',
       name: 'ABC12345D',
-      project: 'Project001',
+      workflow_id: 'some-workflow-id',
     });
 
     expect(subject).toHaveProperty('id');

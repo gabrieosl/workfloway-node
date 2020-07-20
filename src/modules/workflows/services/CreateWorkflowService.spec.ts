@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 import IWorkflowsEntity from '../schemas/IWorkflowSchema';
 import FakeWorkflowsRepository from '../repositories/fakes/FakeWorkflowsRepository';
 import CreateWorkflowService from './CreateWorkflowService';

@@ -37,7 +37,7 @@ export default class FakeWorkflowsRepository implements IWorkflowsRepository {
   ): Promise<IWorkflow> {
     const _id = ObjectID.createFromHexString(id);
     const index = this.workflows.findIndex(wf => wf.id === _id);
-    Object.assign(this.workflows[index], { name, content });
+    // Object.assign(this.workflows[index], { name, content });
 
     return this.workflows[index];
   }

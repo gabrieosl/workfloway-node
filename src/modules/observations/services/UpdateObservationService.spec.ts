@@ -1,23 +1,37 @@
 import IObservationsEntity from '../entities/IObservationEntity';
 import FakeObservationsRepository from '../repositories/fakes/FakeObservationsRepository';
 import CreateObservationService from './CreateObservationService';
+import UpdateObservationService from './UpdateObservationService';
 
 let fakeObservationsRepository: FakeObservationsRepository;
 let createObservation: CreateObservationService;
+let updateObservation: UpdateObservationService;
 
-describe('Create Observation', () => {
+describe('Update Observation', () => {
   beforeEach(() => {
     fakeObservationsRepository = new FakeObservationsRepository();
     createObservation = new CreateObservationService(
       fakeObservationsRepository
     );
+    updateObservation = new UpdateObservationService(
+      fakeObservationsRepository
+    );
   });
 
-  it('should be able to create a observation', async () => {
+  it('should be able to update a observation', async () => {
     const observation = await createObservation.execute({
-      name: 'Enviar para teste',
+      comment: 'some comment',
+      submission_id: 'some-submission-id',
+      type_id: 'some-type-id',
+      value: 'some value',
+      user_id: 'some-user-id',
     });
 
-    expect(observation).toHaveProperty('id');
+    const updatedObservation = await updateObservation.execute({
+      id: observation.id,
+      type_id: 'some-type-id2',
+    });
+
+    expect(updatedObservation.type_id).toEqual('some-type-id2');
   });
 });
