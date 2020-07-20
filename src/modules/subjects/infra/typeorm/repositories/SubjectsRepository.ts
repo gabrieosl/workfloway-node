@@ -24,7 +24,7 @@ export default class SubjectsRepository implements ISubjectsRepository {
       .leftJoinAndSelect(
         'subjects.observations',
         'observations',
-        'observations."subject_id" = subjects.id' // AND observations."created_at" = last_observation."max_created_at"'
+        'observations."subject_id" = subjects.id'
       )
 
       .leftJoin(
@@ -70,64 +70,33 @@ export default class SubjectsRepository implements ISubjectsRepository {
             .select('MAX("created_at")', 'max_created_at')
             .addSelect('"subject_id"')
             .groupBy('"subject_id"'),
-        // .where('submissions."subject_id" = subjects.id'),
         'lastSubmission',
         'submissions."subject_id" = subjects.id AND submissions."created_at" = last_submission."max_created_at"'
       )
-      // .leftJoinAndMapOne(
-      //   'subjects.lastSubmission',
-      //   'subjects.submissions',
-      //   'lastSubmission',
-      //   'submissions."subject_id" = subjects.id AND submissions."created_at" = last_submission."max_created_at"'
-      // )
 
-      // .leftJoin('subjects.submissions', 'submissions')
+      .leftJoinAndSelect('subjects.tags', 'tags')
+      .leftJoin('tags.tag', 'tag')
 
       .orderBy({
         'subjects.name': 'ASC',
       })
       .skip(size * (page - 1))
       .take(size)
-      // .select([
-      //   'subjects.id',
-      //   'subjects.name',
-      //   'subjects.workflow_id',
-      //   'lastObservation.id',
-      //   'lastObservation.type',
-      //   'lastObservation.id',
-      //   'lastObservation.id',
-      //   'observations.id',
-      //   'observations.value',
-      //   'observations.comment',
-      //   'observations.created_at',
-      //   'lastSubmission.id',
-      //   'lastSubmission.closed',
-      //   'lastSubmission.repetition',
-      //   'submissions.closed',
-      //   'submissions.repetition',
-      //   'users.name',
-      // ])
+      .select([
+        'subjects.id',
+        'subjects.name',
+        'subjects.workflow_id',
+        'lastObservation.id',
+        'lastObservation.type_id',
+        'lastObservation.value',
+        'lastObservation.comment',
+        'observations.id',
+        'observations.value',
+        'observations.comment',
+        'observations.created_at',
+        'users.name',
+      ])
       .getMany();
-
-    // const subjects = await this.ormRepository.find({
-    //   take: size,
-    //   skip: size * (page - 1),
-    //   relations: ['observations', 'observations.user', 'submissions'],
-    //   order: {
-    //     name: 'ASC',
-    //   },
-    //   select: [
-    //     'id',
-    //     'name',
-    //     'workflow_id',
-    //     // 'observations.value',
-    //     // 'observations.comment',
-    //     // 'observations.created_at',
-    //     // 'submissions.repetition',
-    //     // 'submissions.closed',
-    //     // 'users.name',
-    //   ],
-    // });
 
     return subjects;
   }

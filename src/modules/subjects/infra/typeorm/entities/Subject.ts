@@ -12,6 +12,7 @@ import {
 
 import ISubjectEntity from '@modules/subjects/entities/ISubjectEntity';
 import Tag from './Tag';
+import SubjectToTag from './SubjectToTag';
 import Observation from '@modules/observations/infra/typeorm/entities/Observation';
 import Submission from './Submission';
 
@@ -32,9 +33,8 @@ class Subject implements ISubjectEntity {
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
 
-  @ManyToMany(() => Tag)
-  @JoinTable()
-  tags: Tag[];
+  @OneToMany(() => SubjectToTag, subjectToTag => subjectToTag.subject)
+  tags: SubjectToTag[];
 
   @OneToMany(() => Observation, observation => observation.subject)
   observations: Observation[];

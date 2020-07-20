@@ -4,11 +4,10 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
-  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import ITagEntity from '@modules/subjects/entities/ITagEntity';
-import Subject from './Subject';
+import SubjectToTag from './SubjectToTag';
 
 @Entity('tags')
 class Tag implements ITagEntity {
@@ -23,6 +22,9 @@ class Tag implements ITagEntity {
 
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
+
+  @OneToMany(type => SubjectToTag, subjectToTag => subjectToTag.tag)
+  subjectToTag: SubjectToTag[];
 }
 
 export default Tag;

@@ -1,4 +1,4 @@
-import ITagEntity from './ITagEntity';
+import SubjectToTag from '../infra/typeorm/entities/SubjectToTag';
 import IObservationEntity from '@modules/observations/entities/IObservationEntity';
 import ISubmissionEntity from './ISubmissionEntity';
 
@@ -9,7 +9,7 @@ export default interface ISubjectEntity {
   created_at: Date;
   updated_at: Date;
 
-  tags: ITagEntity[];
+  tags: SubjectToTag[];
   observations: IObservationEntity[];
   submissions: ISubmissionEntity[];
 }
