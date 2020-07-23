@@ -20,4 +20,17 @@ export default class FakeTagsRepository implements ITagsRepository {
 
     return tag;
   }
+
+  public async update(id: string, { name }: ICreateTagDTO): Promise<Tag> {
+    const index = this.tags.findIndex(tag => tag.id === id);
+    if (index) {
+      this.tags[index].name = name;
+    }
+
+    return this.tags[index];
+  }
+
+  public async delete(id: string): Promise<void> {
+    this.tags = this.tags.filter(tag => tag.id !== id);
+  }
 }

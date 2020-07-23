@@ -33,7 +33,7 @@ class SubjectToTag {
   @ManyToOne(type => Subject, subject => subject.tags)
   subject!: Subject;
 
-  @ManyToOne(type => Tag, tag => tag.subjectToTag)
+  @ManyToOne(type => Tag, tag => tag.subjectToTag, { onDelete: 'CASCADE' })
   tag!: Tag;
 }
 

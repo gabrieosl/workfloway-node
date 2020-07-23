@@ -90,6 +90,7 @@ export default class SubjectsRepository implements ISubjectsRepository {
         'lastObservation.type_id',
         'lastObservation.value',
         'lastObservation.comment',
+        'lastObservation.created_at',
         'observations.id',
         'observations.value',
         'observations.comment',
