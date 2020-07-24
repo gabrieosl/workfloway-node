@@ -4,6 +4,7 @@ import Subject from '../entities/Subject';
 import ISubjectsRepository from '@modules/subjects/repositories/ISubjectsRepository';
 import ICreateSubjectDTO from '@modules/subjects/dtos/ICreateSubjectDTO';
 import Observation from '@modules/observations/infra/typeorm/entities/Observation';
+import SubjectToTag from '../entities/SubjectToTag';
 import Submission from '../entities/Submission';
 
 export default class SubjectsRepository implements ISubjectsRepository {
@@ -102,20 +103,35 @@ export default class SubjectsRepository implements ISubjectsRepository {
     return subjects;
   }
 
-  public async create({
-    name,
-    workflow_id,
-    tags,
-  }: ICreateSubjectDTO): Promise<Subject> {
-    const subject = this.ormRepository.create({
-      name,
-      workflow_id,
-    });
+  public async create({ items }: ICreateSubjectDTO): Promise<Subject[]> {
+    const subjects: Subject[] = [];
 
-    this.ormRepository.save(subject);
+    items.forEach(item => {
+      const subject = this.ormRepository.create({
+        name: item.name,
+        workflow_id: item.workflow_id,
+      });
+
+      if (item.tags) {
+        const tagList: SubjectToTag[] = [];
+        Object.entries(item.tags).forEach(tag => {
+          const subjectToTag = new SubjectToTag();
+          subjectToTag.subjectId = subject.id;
+          subjectToTag.tagId = tag[0];
+          subjectToTag.value = tag[1];
+
+          tagList.push(subjectToTag);
+        });
+
+        subject.tags = tagList;
+      }
+
+      this.ormRepository.save(subject);
+      subjects.push(subject);
+    });
 
     //CREATE TAGS
 
-    return subject;
+    return subjects;
   }
 }

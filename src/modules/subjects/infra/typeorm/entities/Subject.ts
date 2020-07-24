@@ -33,7 +33,9 @@ class Subject implements ISubjectEntity {
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
 
-  @OneToMany(() => SubjectToTag, subjectToTag => subjectToTag.subject)
+  @OneToMany(() => SubjectToTag, subjectToTag => subjectToTag.subject, {
+    cascade: true,
+  })
   tags: SubjectToTag[];
 
   @OneToMany(() => Observation, observation => observation.subject)

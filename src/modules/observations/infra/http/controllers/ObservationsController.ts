@@ -14,18 +14,18 @@ export default class ObservationController {
     return response.json(observations);
   }
   public async create(request: Request, response: Response) {
-    const { comment, submission_id, type_id, value, user_id } = request.body;
+    const { value, comment, type_id, subject_ids, user_id } = request.body;
     const createObservation = container.resolve(CreateObservationController);
 
     const observation = await createObservation.execute({
-      comment,
-      submission_id,
-      type_id,
       value,
+      comment,
+      type_id,
+      subject_ids,
       user_id,
     });
 
-    return response.json(observation);
+    return response.status(201).json(observation);
   }
   public async update(request: Request, response: Response) {
     const { targetId } = request.params;

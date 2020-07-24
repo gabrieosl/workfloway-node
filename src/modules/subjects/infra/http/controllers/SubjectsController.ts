@@ -23,16 +23,14 @@ export default class SubjectsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, workflow_id, tags } = request.body;
+    const { items } = request.body;
 
     const createSubject = container.resolve(CreateSubjectService);
 
     const subject = await createSubject.execute({
-      name,
-      workflow_id,
-      tags,
+      items,
     });
 
-    return response.json(subject);
+    return response.status(201).json(subject);
   }
 }

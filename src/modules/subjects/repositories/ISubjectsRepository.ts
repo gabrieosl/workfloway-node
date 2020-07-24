@@ -7,5 +7,5 @@ export default interface ISubjectsRepository {
     page: number,
     includeObservations: boolean
   ): Promise<ISubjectEntity[]>;
-  create(data: ICreateSubjectDTO): Promise<ISubjectEntity>;
+  create(data: ICreateSubjectDTO): Promise<ISubjectEntity[]>;
 }

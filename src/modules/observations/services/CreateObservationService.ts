@@ -13,17 +13,19 @@ export default class CreateObservationService {
 
   public async execute({
     comment,
-    submission_id,
     type_id,
+    subject_ids,
+    user_id,
     value,
-  }: ICreateObservationDTO): Promise<IObservationEntity> {
-    const observation = await this.observationsRepository.create({
+  }: ICreateObservationDTO): Promise<IObservationEntity[]> {
+    const observations = await this.observationsRepository.create({
       comment,
-      submission_id,
       type_id,
+      subject_ids,
+      user_id,
       value,
     });
 
-    return observation;
+    return observations;
   }
 }

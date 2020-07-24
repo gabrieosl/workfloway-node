@@ -13,7 +13,7 @@ import profileRouter from '@modules/users/infra/http/routes/profile.routes';
 
 const routes = Router();
 routes.use('/observations', observationsRouter);
-routes.use('/observationtypes', observationTypesRouter);
+routes.use('/types', observationTypesRouter);
 routes.use('/subjects', subjectsRouter);
 routes.use('/tags', tagsRouter);
 routes.use('/workflows', workflowsRouter);

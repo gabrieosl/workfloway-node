@@ -20,22 +20,26 @@ export default class ObservationsRepository implements IObservationsRepository {
 
   public async create({
     comment,
-    submission_id,
     type_id,
-    value,
+    subject_ids,
     user_id,
-  }: ICreateObservationDTO): Promise<Observation> {
-    const observation = this.ormRepository.create({
-      comment,
-      submission_id,
-      type_id,
-      value,
-      user_id,
+    value,
+  }: ICreateObservationDTO): Promise<Observation[]> {
+    const observations: Observation[] = [];
+    subject_ids.forEach(async subject => {
+      const observation = this.ormRepository.create({
+        comment,
+        subject_id: subject,
+        type_id,
+        value,
+        user_id,
+      });
+
+      await this.ormRepository.save(observation);
+      observations.push(observation);
     });
 
-    await this.ormRepository.save(observation);
-
-    return observation;
+    return observations;
   }
 
   public async delete(): Promise<boolean> {
