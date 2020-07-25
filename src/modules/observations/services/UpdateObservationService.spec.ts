@@ -21,14 +21,14 @@ describe('Update Observation', () => {
   it('should be able to update a observation', async () => {
     const observation = await createObservation.execute({
       comment: 'some comment',
-      submission_id: 'some-submission-id',
+      subject_ids: ['some-submission-id'],
       type_id: 'some-type-id',
       value: 'some value',
       user_id: 'some-user-id',
     });
 
     const updatedObservation = await updateObservation.execute({
-      id: observation.id,
+      id: observation[0].id,
       type_id: 'some-type-id2',
     });
 

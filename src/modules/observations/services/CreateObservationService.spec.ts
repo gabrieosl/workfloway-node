@@ -14,14 +14,14 @@ describe('Create Observation', () => {
   });
 
   it('should be able to create a observation', async () => {
-    const observation = await createObservation.execute({
+    const observations = await createObservation.execute({
       comment: 'some-comment',
-      submission_id: 'some-submission-id',
+      subject_ids: ['some-subject-id'],
       type_id: 'some-type-id',
       value: 'some value',
       user_id: 'some-user-id',
     });
 
-    expect(observation).toHaveProperty('id');
+    expect(observations[0]).toHaveProperty('id');
   });
 });

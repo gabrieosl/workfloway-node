@@ -14,7 +14,7 @@ export default class ListSubjectsService {
     size = 15,
     page = 1,
     includeObservations = false,
-    filters: any
+    filters: any = {}
   ): Promise<ISubjectEntity[]> {
     const subjects = await this.subjectsRepository.index(
       size,

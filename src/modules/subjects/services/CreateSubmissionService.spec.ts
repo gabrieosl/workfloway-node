@@ -18,8 +18,13 @@ describe('Create Submission', () => {
   });
 
   it('should be able to create a submission associated to a subject', async () => {
-    const subject = await createSubject.execute({
-      name: 'ABC12345D',
+    const [subject] = await createSubject.execute({
+      items: [
+        {
+          name: 'ABC12345D',
+          workflow_id: 'some-workflow-id',
+        },
+      ],
       workflow_id: 'some-workflow-id',
     });
 

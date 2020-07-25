@@ -11,16 +11,22 @@ export default class FakeSubjectsRepository implements ISubjectsRepository {
     return this.subjects;
   }
 
-  public async create({
-    name,
-    workflow_id,
-  }: ICreateSubjectDTO): Promise<Subject> {
-    const subject = new Subject();
+  public async create({ items }: ICreateSubjectDTO): Promise<Subject[]> {
+    const subjects: Subject[] = [];
 
-    Object.assign(subject, { id: uuid(), name, workflow_id });
+    items.forEach(item => {
+      const subject = new Subject();
 
-    this.subjects.push(subject);
+      Object.assign(subject, {
+        id: uuid(),
+        name: item.name,
+        workflow_id: item.workflow_id,
+      });
 
-    return subject;
+      this.subjects.push(subject);
+      subjects.push(subject);
+    });
+
+    return subjects;
   }
 }

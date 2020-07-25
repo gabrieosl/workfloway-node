@@ -15,25 +15,28 @@ export default class FakeObservationsRepository
 
   public async create({
     comment,
-    submission_id,
+    subject_ids,
     type_id,
     value,
     user_id,
-  }: ICreateObservationDTO): Promise<Observation> {
-    const observation = new Observation();
+  }: ICreateObservationDTO): Promise<Observation[]> {
+    const observations: Observation[] = [];
+    subject_ids.forEach(subject_id => {
+      const observation = new Observation();
+      Object.assign(observation, {
+        id: uuid(),
+        comment,
+        subject_ids,
+        type_id,
+        value,
+        user_id,
+      });
 
-    Object.assign(observation, {
-      id: uuid(),
-      comment,
-      submission_id,
-      type_id,
-      value,
-      user_id,
+      observations.push(observation);
+      this.observations.push(observation);
     });
 
-    this.observations.push(observation);
-
-    return observation;
+    return observations;
   }
 
   public async delete(observation_id: string): Promise<boolean> {
