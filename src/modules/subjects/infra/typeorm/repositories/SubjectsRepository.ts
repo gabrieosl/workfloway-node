@@ -19,7 +19,8 @@ export default class SubjectsRepository implements ISubjectsRepository {
     page: number,
     includeObservations: boolean,
     filters: {
-      [key: string]: string[] | string[][];
+      hasTag: string[][];
+      lastObservationType: string[];
     }
   ): Promise<Subject[]> {
     console.log(filters);
@@ -39,30 +40,45 @@ export default class SubjectsRepository implements ISubjectsRepository {
         );
 
     // Last Observation
-    const q3 = q2
-      .leftJoin(
-        qb =>
-          qb
-            .from(Observation, 'observations')
-            .select('MAX("created_at")', 'max_created_at')
-            .addSelect('"subject_id"')
-            .groupBy('"subject_id"'),
-        'last_observation',
-        'last_observation."subject_id" = subjects.id'
-      )
-      .leftJoinAndMapOne(
-        'subjects.lastObservation',
-        'subjects.observations',
-        'lastObservation',
-        'observations."subject_id" = subjects.id AND observations."created_at" = last_observation."max_created_at"'
-      )
+    const q3 = q2.leftJoin(
+      qb =>
+        qb
+          .from(Observation, 'observations')
+          .select('MAX("created_at")', 'max_created_at')
+          .addSelect('"subject_id"')
+          .groupBy('"subject_id"'),
+      'last_observation',
+      'last_observation."subject_id" = subjects.id'
+    );
+    const q4 = filters.lastObservationType.length
+      ? q3.innerJoinAndMapOne(
+          'subjects.lastObservation',
+          'subjects.observations',
+          'lastObservation',
+          `observations."subject_id" = subjects.id AND observations."created_at" = last_observation."max_created_at" AND observations."type_id" IN ('${filters.lastObservationType.join(
+            `','`
+          )}')`
+        )
+      : q3.leftJoinAndMapOne(
+          'subjects.lastObservation',
+          'subjects.observations',
+          'lastObservation',
+          'observations."subject_id" = subjects.id AND observations."created_at" = last_observation."max_created_at"'
+        );
+
+    const tagQuery = filters.hasTag.map(
+      item => `(tags."tagId" = '${item[0]}' AND tags."value" = '${item[1]}')`
+    );
+
+    const q5 = filters.hasTag
+      ? q4.innerJoinAndSelect('subjects.tags', 'tags', tagQuery.join(' OR '))
+      : q4.leftJoinAndSelect('subjects.tags', 'tags');
+
+    const q6 = q5
       .leftJoinAndSelect('lastObservation.user', 'users')
-
-      // Tags
-      .leftJoinAndSelect('subjects.tags', 'tags')
-
       .orderBy({
         'subjects.name': 'ASC',
+        'tags.tagId': 'ASC',
       })
       .skip(size * (page - 1))
       .take(size)
@@ -84,7 +100,7 @@ export default class SubjectsRepository implements ISubjectsRepository {
         'tags.value',
         'users.name',
       ]);
-    const lala = await q3.getMany();
+    const lala = await q6.getMany();
 
     return lala;
   }

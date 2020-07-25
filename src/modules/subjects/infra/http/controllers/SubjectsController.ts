@@ -13,23 +13,25 @@ export default class SubjectsController {
 
     const includeObservations = !!request.query.includeObservations;
 
-    const hasTag = String(request.query.hasTag);
-    let tags: String[][] = [];
-    if (hasTag) {
-      tags = hasTag.split(',').map(entry => entry.split(':'));
+    let hasTag: String[][] = [];
+    if (request.query.hasTag) {
+      hasTag = String(request.query.hasTag)
+        .split(',')
+        .map(entry => entry.split(':'));
     }
 
-    const lastObservationType = String(request.query.lastObservationType);
-    let types: String[] = [];
-    if (lastObservationType) {
-      types = lastObservationType.split(',');
+    let lastObservationType: String[] = [];
+    if (request.query.lastObservationType) {
+      lastObservationType = String(request.query.lastObservationType).split(
+        ','
+      );
     }
 
     const subjects = await listSubjects.execute(
       size,
       page,
       includeObservations,
-      { tags, types }
+      { hasTag, lastObservationType }
     );
 
     return response.json(subjects);
