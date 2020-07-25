@@ -6,4 +6,5 @@ export default interface ICreateSubjectDTO {
       [key: string]: string;
     };
   }[];
+  workflow_id: string;
 }

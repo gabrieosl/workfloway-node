@@ -13,9 +13,11 @@ export default class CreateSubjectService {
 
   public async execute({
     items,
+    workflow_id,
   }: ICreateSubjectDTO): Promise<ISubjectEntity[]> {
     const subject = await this.subjectsRepository.create({
       items,
+      workflow_id,
     });
 
     return subject;

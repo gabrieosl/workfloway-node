@@ -30,7 +30,7 @@ class SubjectToTag {
   @UpdateDateColumn({ default: 'now()' })
   updated_at: Date;
 
-  @ManyToOne(type => Subject, subject => subject.tags)
+  @ManyToOne(type => Subject, subject => subject.tags, { onDelete: 'CASCADE' })
   subject!: Subject;
 
   @ManyToOne(type => Tag, tag => tag.subjectToTag, { onDelete: 'CASCADE' })

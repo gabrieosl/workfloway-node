@@ -13,12 +13,14 @@ export default class ListSubjectsService {
   public async execute(
     size = 15,
     page = 1,
-    includeObservations = false
+    includeObservations = false,
+    filters: any
   ): Promise<ISubjectEntity[]> {
     const subjects = await this.subjectsRepository.index(
       size,
       page,
-      includeObservations
+      includeObservations,
+      filters
     );
 
     return subjects;

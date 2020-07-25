@@ -10,8 +10,7 @@ export default class WorkflowsController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listWorkflows = container.resolve(ListWorkflowsService);
 
-    const { size = 20, page = 1 } = request.body;
-    const workflows = await listWorkflows.execute({ size, page });
+    const workflows = await listWorkflows.execute();
 
     return response.json(workflows);
   }

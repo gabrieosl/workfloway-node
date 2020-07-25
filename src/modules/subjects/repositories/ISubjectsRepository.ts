@@ -5,7 +5,10 @@ export default interface ISubjectsRepository {
   index(
     size: number,
     page: number,
-    includeObservations: boolean
+    includeObservations: boolean,
+    filters: {
+      [key: string]: string[] | string[][];
+    }
   ): Promise<ISubjectEntity[]>;
   create(data: ICreateSubjectDTO): Promise<ISubjectEntity[]>;
 }

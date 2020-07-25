@@ -17,17 +17,29 @@ export default class SubjectsRepository implements ISubjectsRepository {
   public async index(
     size: number,
     page: number,
-    includeObservations: boolean
+    includeObservations: boolean,
+    filters: {
+      [key: string]: string[] | string[][];
+    }
   ): Promise<Subject[]> {
-    let subjects = await this.ormRepository
-      .createQueryBuilder('subjects')
+    console.log(filters);
+    let subjects = await this.ormRepository.createQueryBuilder('subjects');
 
-      .leftJoinAndSelect(
-        'subjects.observations',
-        'observations',
-        'observations."subject_id" = subjects.id'
-      )
+    // Observations
+    const q2 = includeObservations
+      ? subjects.leftJoinAndSelect(
+          'subjects.observations',
+          'observations',
+          'observations."subject_id" = subjects.id'
+        )
+      : subjects.leftJoin(
+          'subjects.observations',
+          'observations',
+          'observations."subject_id" = subjects.id'
+        );
 
+    // Last Observation
+    const q3 = q2
       .leftJoin(
         qb =>
           qb
@@ -44,39 +56,10 @@ export default class SubjectsRepository implements ISubjectsRepository {
         'lastObservation',
         'observations."subject_id" = subjects.id AND observations."created_at" = last_observation."max_created_at"'
       )
-
       .leftJoinAndSelect('lastObservation.user', 'users')
 
-      .leftJoinAndSelect(
-        'subjects.submissions',
-        'submissions',
-        'submissions."subject_id" = subjects.id'
-      )
-      .leftJoin(
-        qb =>
-          qb
-            .from(Submission, 'submissions')
-            .select('MAX("created_at")', 'max_created_at')
-            .addSelect('"subject_id"')
-            .groupBy('"subject_id"'),
-        'last_submission',
-        'last_submission."subject_id" = subjects.id'
-      )
-
-      .leftJoinAndMapOne(
-        'subjects.lastSubmission',
-        qb =>
-          qb
-            .from(Submission, 'submissions')
-            .select('MAX("created_at")', 'max_created_at')
-            .addSelect('"subject_id"')
-            .groupBy('"subject_id"'),
-        'lastSubmission',
-        'submissions."subject_id" = subjects.id AND submissions."created_at" = last_submission."max_created_at"'
-      )
-
+      // Tags
       .leftJoinAndSelect('subjects.tags', 'tags')
-      .leftJoin('tags.tag', 'tag')
 
       .orderBy({
         'subjects.name': 'ASC',
@@ -96,20 +79,26 @@ export default class SubjectsRepository implements ISubjectsRepository {
         'observations.value',
         'observations.comment',
         'observations.created_at',
+        'tags.id',
+        'tags.tagId',
+        'tags.value',
         'users.name',
-      ])
-      .getMany();
+      ]);
+    const lala = await q3.getMany();
 
-    return subjects;
+    return lala;
   }
 
-  public async create({ items }: ICreateSubjectDTO): Promise<Subject[]> {
+  public async create({
+    items,
+    workflow_id,
+  }: ICreateSubjectDTO): Promise<Subject[]> {
     const subjects: Subject[] = [];
 
     items.forEach(item => {
       const subject = this.ormRepository.create({
         name: item.name,
-        workflow_id: item.workflow_id,
+        workflow_id: workflow_id,
       });
 
       if (item.tags) {
