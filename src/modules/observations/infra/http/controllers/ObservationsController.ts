@@ -14,7 +14,8 @@ export default class ObservationController {
     return response.json(observations);
   }
   public async create(request: Request, response: Response) {
-    const { value, comment, type_id, subject_ids, user_id } = request.body;
+    const { value, comment, type_id, subject_ids } = request.body;
+    const user_id = request.user.id;
     const createObservation = container.resolve(CreateObservationController);
 
     const observation = await createObservation.execute({
@@ -29,7 +30,7 @@ export default class ObservationController {
   }
   public async update(request: Request, response: Response) {
     const { targetId } = request.params;
-    const { comment, value, type_id, submission_id } = request.body;
+    const { comment, value, type_id } = request.body;
 
     const updateObservation = container.resolve(UpdateObservationService);
 
@@ -38,7 +39,6 @@ export default class ObservationController {
       comment,
       value,
       type_id,
-      submission_id,
     });
 
     return response.json(observation);
