@@ -18,7 +18,7 @@ export default function (
   const authHeader = request.headers.authorization;
 
   if (!authHeader) {
-    throw new AppError('JWT is missing', 403);
+    throw new AppError('JWT is missing', 401);
   }
   const [, token] = authHeader.split(' ');
 
@@ -31,6 +31,6 @@ export default function (
 
     return next();
   } catch {
-    throw new AppError('Invalid JWT', 401);
+    throw new AppError('Invalid JWT', 403);
   }
 }
