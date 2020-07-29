@@ -20,6 +20,9 @@ import ObservationsRepository from '@modules/observations/infra/typeorm/reposito
 import IWorkflowsRepository from '@modules/workflows/repositories/IWorkflowsRepository';
 import WorkflowsRepository from '@modules/workflows/infra/typeorm/repositories/WorkflowsRepository';
 
+import ISelectionsRepository from '@modules/selections/repositories/ISelectionsRepository';
+import SelectionsRepository from '@modules/selections/infra/typeorm/repositories/SelectionsRepository';
+
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import UsersRepository from '@modules/users/infra/typeorm/repositories/UsersRepository';
 
@@ -46,6 +49,11 @@ container.registerSingleton<IObservationsRepository>(
 container.registerSingleton<IWorkflowsRepository>(
   'WorkflowsRepository',
   WorkflowsRepository
+);
+
+container.registerSingleton<ISelectionsRepository>(
+  'SelectionsRepository',
+  SelectionsRepository
 );
 
 container.registerSingleton<IUsersRepository>(

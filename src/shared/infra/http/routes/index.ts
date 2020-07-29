@@ -5,6 +5,7 @@ import observationTypesRouter from '@modules/observations/infra/http/routes/obse
 import subjectsRouter from '@modules/subjects/infra/http/routes/subjects.routes';
 import tagsRouter from '@modules/subjects/infra/http/routes/tags.routes';
 import workflowsRouter from '@modules/workflows/infra/http/routes/workflows.routes';
+import selectionsRouter from '@modules/selections/infra/http/routes/selections.routes';
 
 import usersRouter from '@modules/users/infra/http/routes/users.routes';
 import sessionsRouter from '@modules/users/infra/http/routes/sessions.routes';
@@ -17,6 +18,7 @@ routes.use('/types', observationTypesRouter);
 routes.use('/subjects', subjectsRouter);
 routes.use('/tags', tagsRouter);
 routes.use('/workflows', workflowsRouter);
+routes.use('/selections', selectionsRouter);
 
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
