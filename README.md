@@ -18,10 +18,11 @@
 </p>
 
 <p align="center">
-  <a href="#%EF%B8%8F-about-the-project">About</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-getting-started">Getting started</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-Contributing">Contributing</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#%EF%B8%8F-about-the-project">About</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-run-it-yourself">Getting started</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-TODO">TODO</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-Contributing">Contributing</a>&nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-license">License</a>
 </p>
 
@@ -111,7 +112,7 @@ $ yarn dev:server
 
 New features can always be added to this repository. If you want to contribute just fork, add or change want you want and submit a Pull request.
 
-## 📝 License
+# 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
