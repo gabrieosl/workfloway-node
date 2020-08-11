@@ -18,11 +18,11 @@
 </p>
 
 <p align="center">
-  <a href="#%EF%B8%8F-about-the-project">About</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-about">About</a>&nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-technologies">Technologies</a>&nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-run-it-yourself">Getting started</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="#-TODO">TODO</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-  <a href="#-Contributing">Contributing</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-reste-à-faire-todo">TODO</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+  <a href="#-contributing">Contributing</a>&nbsp;&nbsp;|&nbsp;&nbsp;
   <a href="#-license">License</a>
 </p>
 
@@ -30,13 +30,13 @@
   <a href="#" target="_blank"><img src="https://insomnia.rest/images/run.svg" alt="Run in Insomnia"></a>
 </p>
 
-# About
+# 👨🏻‍💻 About
 
 This API provides everything needed to manage workflows, products, observations and every resource needed for Workfloway.
 
 You can find the responsive web client [here](https://github.com/gabrieosl/workfloway-react).
 
-# Technologies
+# 🚀 Technologies
 
 ## Infra
 
@@ -60,7 +60,7 @@ You can find the responsive web client [here](https://github.com/gabrieosl/workf
 - **Injection**: tsyringe
 - **Security**: Cors, Helmet, Limit-rate
 
-# 💻 Run it yourself
+# ⚙️ Run it yourself
 
 If you are using Insomnia, you can simply import `insomnia.json` into it or click on `Run in Insomnia` button at the top of this file.
 
@@ -86,13 +86,13 @@ $ yarn
 $ cp .env.example .env
 
 # Create an instance of postgreSQL using docker
-$ docker run --name gobarber-postgres -e POSTGRES_USER=docker -e POSTGRES_DB=gobarber -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+$ docker run --name workfloway-postgres -e POSTGRES_USER=docker -e POSTGRES_DB=workfloway -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
 
 # Create an instance of mongoDB using docker
-$ docker run --name gobarber-mongodb -p 27017:27017 -d -t mongo
+$ docker run --name workfloway-mongodb -p 27017:27017 -d -t mongo
 
 # Create an instance of redis using docker
-$ docker run --name gobarber-redis -p 6379:6379 -d -t redis:alpine
+$ docker run --name workfloway-redis -p 6379:6379 -d -t redis:alpine
 
 # Copy 'ormconfig.example.json' as 'ormconfig.json' and fill the database info.
 $ cp ormconfig.example.json ormconfig.json
@@ -104,11 +104,11 @@ $ yarn typeorm migration:run
 $ yarn dev:server
 ```
 
-# Reste à faire (TODO)
+# ✔️ Reste à faire (TODO)
 
 - [ ] Implement the possibility to specify a list of `subjectId` as a param to retrieve their data.
 
-# Contributing
+# 💻 Contributing
 
 New features can always be added to this repository. If you want to contribute just fork, add or change want you want and submit a Pull request.
 
