@@ -21,10 +21,13 @@ export default class SubjectsRepository implements ISubjectsRepository {
     filters: {
       hasTag: string[][];
       lastObservationType: string[];
+      ids: string[];
     }
   ): Promise<Subject[]> {
     console.log(filters);
     let subjects = await this.ormRepository.createQueryBuilder('subjects');
+
+    // ids
 
     // Observations
     const q2 = includeObservations
